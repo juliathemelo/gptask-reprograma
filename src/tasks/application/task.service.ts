@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TaskEntity } from '../entities/task.entity';
 import { CreateTaskDto } from '../dto/createTask.dto';
-import { ProjectService } from 'src/project/application/project.service';
 import { UpdateTaskDto } from '../dto/updateTask.dto';
+import { ProjectEntity } from 'src/project/entities/project.entity';
 
 @Injectable()
 export class TaskService {
@@ -12,12 +12,32 @@ export class TaskService {
     constructor(
         @InjectRepository(TaskEntity)
         private readonly taskRepository: Repository<TaskEntity>,
+
+        @InjectRepository(ProjectEntity)
+        private readonly projectRepository: Repository<ProjectEntity>,
     ) {}
 
     async createTask(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
 
         const newTask = this.taskRepository.create(createTaskDto);
         await this.taskRepository.save(createTaskDto);
+
+        return newTask;
+    }
+
+    async createIndividualTask(projectId: string, createTaskDto: CreateTaskDto): Promise<TaskEntity> {
+
+        const project = await this.projectRepository.findOne({ where: { id: projectId } });
+
+        if (!project) {
+            throw new NotFoundException(`Client with ID ${project} not found`);
+        }
+
+        const newTask = this.taskRepository.create({
+            ...createTaskDto,
+            project: project
+        });
+        await this.taskRepository.save(newTask);
 
         return newTask;
     }

@@ -8,6 +8,7 @@ import { ProjectEntity } from '../entities/project.entity';
 import { PriorityType } from 'src/tasks/entities/priority.type';
 import { randomUUID } from 'crypto';
 import { Repository } from 'typeorm';
+import { ClientEntity } from 'src/client/entities/client.entity';
 
 @Injectable()
 export class ProjectService {
@@ -16,10 +17,19 @@ export class ProjectService {
         @InjectRepository(ProjectEntity)
         private readonly projectRepository: Repository<ProjectEntity>,
         private readonly taskService: TaskService,
-        private readonly openAiService: OpenAIService
+        private readonly openAiService: OpenAIService,
+
+        @InjectRepository(ClientEntity)
+        private clientRepository: Repository<ClientEntity>, 
     ) {}
 
-    async createProject(createProjectDto: CreateProjectDto): Promise<ProjectEntity> {
+    async createProject(clientId: string, createProjectDto: CreateProjectDto): Promise<ProjectEntity> {
+
+        const client = await this.clientRepository.findOne({ where: { id: clientId } });
+
+        if (!client) {
+            throw new NotFoundException(`Client with ID ${clientId} not found`);
+        }
 
         const prompt = `Como Product Owner de uma empresa renomada, sua experiência é fundamental para ajudar o cliente a desestruturar uma tarefa do projeto dele baseado na metodologia SCRUM. Está é a tarefa ${createProjectDto.name}
         e ele precisa criar dividir ela em subtarefas.
@@ -41,7 +51,11 @@ export class ProjectService {
 
         const aiResponse = await this.openAiService.generateResponse(prompt);
 
-        const newProject = this.projectRepository.create(createProjectDto);
+        const newProject = this.projectRepository.create({
+            ...createProjectDto,
+            owner: client,
+        });
+
         await this.projectRepository.save(newProject);
 
         const jsonMatch = aiResponse.match(/(\[.*\]|\{.*\})/s);
@@ -76,5 +90,10 @@ export class ProjectService {
         });
 
         return project;
+    }
+
+    async deleteProject(id: string): Promise<void> {
+        const project = await this.projectRepository.findOne({ where: { id } });
+        await this.projectRepository.remove(project)
     }
 }

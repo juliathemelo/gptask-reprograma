@@ -1,3 +1,4 @@
+import { ProjectEntity } from 'src/project/entities/project.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()
@@ -15,6 +16,6 @@ export class ClientEntity {
     name: string;
 
     //@OneToMany(() => AccountEntity, account => account.idClient)
-    @Column()
-    projects: string;
+    @OneToMany(() => ProjectEntity, project => project.owner)
+    projects: ProjectEntity[];
 }

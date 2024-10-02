@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 import { PriorityType } from '../entities/priority.type';
 import { ProjectEntity } from 'src/project/entities/project.entity';
 

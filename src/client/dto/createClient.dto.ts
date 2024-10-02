@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import { ProjectEntity } from 'src/project/entities/project.entity';
 
 export class CreateClientDto {
     @IsNotEmpty()
@@ -15,5 +16,5 @@ export class CreateClientDto {
     name: string;
 
     @IsOptional()
-    projects: string;
+    projects?: ProjectEntity[];
 }

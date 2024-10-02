@@ -11,9 +11,9 @@ import { UpdateTaskDto } from 'src/tasks/dto/updateTask.dto';
 
         }
 
-        @Post()
-        createClient(@Body() createTaskDto: CreateTaskDto): Promise<TaskEntity> {
-            return this.taskService.createTask(createTaskDto);
+        @Post(":projectId")
+        createClient(@Param('projectId') projectId: string, @Body() createTaskDto: CreateTaskDto): Promise<TaskEntity> {
+            return this.taskService.createIndividualTask(projectId, createTaskDto);
         }
 
         @Patch(":id")

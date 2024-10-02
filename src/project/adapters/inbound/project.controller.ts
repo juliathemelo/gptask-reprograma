@@ -9,13 +9,18 @@ import { ProjectEntity } from 'src/project/entities/project.entity';
 
         }
 
-        @Post()
-        createClient(@Body() createProjectDto: CreateProjectDto): Promise<ProjectEntity> {
-            return this.projectService.createProject(createProjectDto);
+        @Post(":id")
+        createClient(@Param('clientId') clientId: string, @Body() createProjectDto: CreateProjectDto): Promise<ProjectEntity> {
+            return this.projectService.createProject(clientId, createProjectDto);
         }
 
         @Get(":id")
         getTaskInformation(@Param('id') id: string): Promise<ProjectEntity> {
             return this.projectService.getTaskInformation(id);
+        }
+
+        @Delete(":id")
+        deleteProject(@Param('id') id: string): Promise<void> {
+            return this.projectService.deleteProject(id);
         }
     }

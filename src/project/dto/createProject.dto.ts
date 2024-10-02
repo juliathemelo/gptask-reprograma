@@ -2,10 +2,13 @@ import { IsNotEmpty, IsNumber, IsOptional, ValidateNested } from 'class-validato
 import { Type } from 'class-transformer';
 import { CreateTaskDto } from 'src/tasks/dto/createTask.dto';
 import { TaskEntity } from 'src/tasks/entities/task.entity';
+import { ClientEntity } from 'src/client/entities/client.entity';
 
 export class CreateProjectDto {
     @IsNotEmpty()
     id: string;
+
+    owner: ClientEntity;
 
     @IsNotEmpty()
     name: string;
