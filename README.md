@@ -9,15 +9,19 @@
 
 ### Tópicos 
 
-:small_blue_diamond: [Descrição do projeto](#descrição-do-projeto)
+:small_blue_diamond: [Descrição do projeto]
 
-:small_blue_diamond: [Funcionalidades](#funcionalidades)
+:small_blue_diamond: [Objetivo do projeto]
 
-:small_blue_diamond: [Deploy da Aplicação](#deploy-da-aplicação-dash)
+:small_blue_diamond: [Funcionalidades]
 
-:small_blue_diamond: [Pré-requisitos](#pré-requisitos)
+:small_blue_diamond: [Arquitetura]
 
-:small_blue_diamond: [Como rodar a aplicação](#como-rodar-a-aplicação-arrow_forward)
+:small_blue_diamond: [Deploy da Aplicação]
+
+:small_blue_diamond: [Pré-requisitos]
+
+:small_blue_diamond: [Como rodar a aplicação]
 
 ## Descrição do projeto 
 
@@ -59,8 +63,7 @@ Se ainda não houver deploy, insira capturas de tela da aplicação ou gifs
 ## Pré-requisitos
 
 :warning: [Node](https://nodejs.org/en/download/)
-:warning: [Git](https://nodejs.org/en/download/)
-:warning: [Git](https://nodejs.org/en/download/)
+:warning: [Git](https://git-scm.com/downloads)
 
 Liste todas as dependencias e libs que o usuário deve ter instalado na máquina antes de rodar a aplicação 
 
