@@ -47,6 +47,9 @@
 
 :heavy_check_mark: Visualização de clientes, seus projetos e tasks
 
+## Arquitetura Hexagonal
+![Alt text](./picture/hexagonal-gptask.png)
+
 ## Layout ou Deploy da Aplicação :dash:
 
 > https://certificates-for-everyone-womakerscode.netlify.app/
