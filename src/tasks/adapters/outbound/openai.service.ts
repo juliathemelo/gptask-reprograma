@@ -7,7 +7,7 @@ dotenv.config();
 @Injectable()
 export class OpenAIService {
   private openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY, // Use a chave da organização
+    apiKey: process.env.RANDOM_KEY, // Use a chave da organização
   });
 
   async generateResponse(prompt: string): Promise<any> {
